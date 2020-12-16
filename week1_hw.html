@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Webpage Title -->
+    <title>만두장인의 개성 손만두</title>
+
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <style type="text/css">
+        * {
+            font-family: 'Black Han Sans', sans-serif;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: auto;
+        }
+
+        .img {
+            background-image: url('https://www.conscious-skincare.com/wp-content/uploads/2016/02/glc-candle-lit-with-new-gift-box.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 500px;
+            height: 300px;
+        }
+
+        .info {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1, h5 {
+            display: inline;
+        }
+
+        .order {
+            text-align: center;
+        }
+
+        .orders {
+            margin-top: 100px;
+        }
+        .exchange-info{
+            color: aqua;
+        }
+        .exchange-info2{
+            color: red;
+        }
+    </style>
+
+    <script>
+        function order() {
+            let name = $('#order-name').val();
+            let count = $('#order-count').val();
+            let adress = $('#order-address').val();
+            let phone = $('#order-phone').val();
+
+            if (name == '') {
+                alert('이름을 입력하세요.')
+            } else if (count == '') {
+                alert('수량을 입력하세요.')
+            } else if (adress == '') {
+                alert('주소를 입력하세요.')
+            } else if (phone == '') {
+                alert('전화번호를 입력하세요.')
+            } else {
+                alert('주문이 완료되었습니다.')
+            }
+        }
+
+        function showDollar() {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                success: function (response) {
+                    for (let i = 0; i < response.length; i++) {
+                        if (response[i]['name'] == 'USDKRW=X') {
+                            $('#exchange').text(response[i]['rate']);
+                            return;
+                        }
+                    }
+                }
+            })
+        }
+
+        function showEn() {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                success: function (response) {
+                    for (let i = 0; i < response.length; i++) {
+                        if (response[i]['name'] == 'JPYKRW=X') {
+                            $('#exchange2').text(response[i]['rate']);
+                            return;
+                        }
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div>
+        <img alt="아리랑 개성손만두 요리전문점"
+             src="https://tong.visitkorea.or.kr/cms/resource/66/2604866_image2_1.jpg" data-noaft="1" jsname="HiaYvf"
+             jsaction="load:XAeZkd;" style="width: 500px; height: 300px; margin: 0px auto;">
+    </div>
+    <div class="info">
+        <h1>만두를 팝니다</h1>
+        <h5>가격: 1인분 8000원</h5>
+        <p>이 만두는 만두장인의 정성으로 재료손질부터 찐만두가 되어서 나오기까지 모든 과정을</p>
+        <p>정직하게 만들었습니다. 한번 드셔보세요!! 자신있습니다!</p>
+        <h1>주문하기</h1>
+        <div class="exchange-info">
+            '원-달러 환율:'
+            <span id="exchange">1090
+
+            </span>
+
+            <div class="exchange-info2">
+                '엔-달러 환율:'
+                <span id="exchange2">10.479761561388328
+
+            </span>
+
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주문자 성함</span>
+                </div>
+                <input type="text" class="form-control" id="order-name">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">수량</label>
+                </div>
+                <select class="custom-select" id="order-count">
+                    <option selected value=""> -- 수량을 선택하세요 --</option>
+                    <option value="1">1인분</option>
+                    <option value="2">2인분</option>
+                    <option value="3">3인분</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주소</span>
+                </div>
+                <input type="text" class="form-control" id="order-address">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">전화번호</span>
+                </div>
+                <input type="text" class="form-control" id="order-phone">
+            </div>
+            <div class="order">
+                <button onclick="order()" type="button" class="btn btn-primary">주문하기</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
